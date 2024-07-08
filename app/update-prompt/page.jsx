@@ -2,7 +2,6 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import dynamic from "next/dynamic";
 import Form from "@components/Form";
 
 const UpdatePrompt = () => {
@@ -53,24 +52,18 @@ const UpdatePrompt = () => {
     };
 
     return (
-        <Form
-            type='Edit'
-            post={post}
-            setPost={setPost}
-            submitting={submitting}
-            handleSubmit={updatePrompt}
-        />
-    );
-};
-
-const DynamicUpdatePrompt = dynamic(() => Promise.resolve(UpdatePrompt), { ssr: false });
-
-const UpdatePromptPage = () => {
-    return (
-        <Suspense fallback={<div>Loading...</div>}>
-            <DynamicUpdatePrompt />
+        <Suspense>
+            <Form
+                type='Edit'
+                post={post}
+                setPost={setPost}
+                submitting={submitting}
+                handleSubmit={updatePrompt}
+            />
         </Suspense>
     );
 };
 
-export default UpdatePromptPage;
+
+
+export default UpdatePrompt;
